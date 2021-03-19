@@ -1,0 +1,68 @@
+
+server:
+  port: 8081
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8082/eureka/
+   # registry-fetch-interval-seconds: 5
+    register-with-eureka: true
+
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 20
+
+
+
+spring:
+  application:
+    name: consumerServer
+
+endpoints:
+  health:
+    sensitive: false
+
+
+bookServer: #这里要设置的是服务名称，clientname.ribbon.xxx
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    ReadTimeout: 3000
+    ConnectTimeout: 1000
+    MaxAutoRetries: 3
+    MaxAutoRetriesNextServer: 0
+    retryableStatusCodes: 503, 408
+    OkToRetryOnAllOperations: true
+
+
+#ribbon禁用eureka
+#ribbon:
+#  eureka:
+#    enabled: false
+
+#配置组件暴露细节
+management:
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+
+#暴露actuator/hystrix.stream路径
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+# 添加localhost到代理流list
+#  让dashboard可以接收http://localhost:8081/actuator/hystrix.stream的数据
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: localhost
+
+
+
+
+
+
+

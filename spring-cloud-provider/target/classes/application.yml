@@ -1,0 +1,52 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.74.140:3306/test?serverTimezone=Asia/Shanghai
+    username: soda
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+mybatis:
+  type-aliases-package: com.soda.cloud.pojo
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    com.soda.cloud.mapper: debug
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8082/eureka/
+    register-with-eureka: true
+    instance:
+      lease-renewal-interval-in-seconds: 30
+#      lease-expiration-duration-in-seconds: 15
+
+
+
+#配置两个服务端口
+---
+spring:
+     profiles: peer1
+     application:
+       name: bookServer
+server:
+  port: 8080
+
+
+---
+spring:
+     profiles: peer2
+     application:
+       name: bookServer
+server:
+  port: 8083
+
+
+---
+spring:
+  profiles: peer3
+  application:
+    name: bookServer1
+server:
+  port: 8084
