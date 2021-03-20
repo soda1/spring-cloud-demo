@@ -22,8 +22,7 @@ public class InvokeController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-    private ProviderFeign providerFeign;
+
 
 
 /*    @HystrixCommand(fallbackMethod = "fallBack", commandProperties = {
@@ -47,7 +46,10 @@ public class InvokeController {
             throw new RuntimeException("服务忙");
         }
         return restTemplate.getForObject(baseUrl, String.class);
-//        return providerFeign.getBook(name);
+
+
+
+
 
     }
 

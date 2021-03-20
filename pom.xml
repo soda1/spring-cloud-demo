@@ -13,6 +13,7 @@
         <module>spring-cloud-server</module>
         <module>spring-cloud-consumer</module>
         <module>ribbon-retry</module>
+        <module>feign</module>
     </modules>
 
     <properties>

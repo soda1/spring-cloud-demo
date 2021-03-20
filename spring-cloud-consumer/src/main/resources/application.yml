@@ -24,7 +24,7 @@ endpoints:
   health:
     sensitive: false
 
-
+#ribbon client
 bookServer: #这里要设置的是服务名称，clientname.ribbon.xxx
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
@@ -62,7 +62,12 @@ hystrix:
 
 
 
+#feign 配置
 
 
 
+
+feign:
+  hystrix:
+    enabled: true  #开启hystrix熔断功能
 

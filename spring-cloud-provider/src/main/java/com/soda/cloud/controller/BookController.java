@@ -25,10 +25,12 @@ public class BookController {
     public Book getbook(@PathVariable(name = "bookname") String bookname, HttpServletResponse response) throws InterruptedException {
         System.out.println("接收请求");
         //休眠模拟访问超时
-        response.setStatus(HttpStatus.SERVICE_UNAVAILABLE.value());
 //        TimeUnit.SECONDS.sleep(7);
         return bookService.getbook(bookname);
     }
+
+
+
 
 
 
