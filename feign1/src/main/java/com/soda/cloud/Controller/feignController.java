@@ -35,13 +35,7 @@ public class feignController {
         return providerFeign.error();
     }
 
-    /**
-     * 测试feign超时时间
-     */
-    @GetMapping("timeout/{time}")
-    public String timeout(@PathVariable("time") int time) {
-        return providerFeign.timeout(time);
-    }
+
 
     /**
      * 测试feign，get方法参数怎么传递
@@ -79,6 +73,16 @@ public class feignController {
     @PostMapping("/post/many")
     public String postManyTest( String param1,  String param2,  String param3) {
         return providerFeign.postManyTest(param1, param2, param3);
+    }
+
+    /**
+     * 测试feign超时
+     * @param sleepTime
+     * @return
+     */
+    @GetMapping("/timeout/{time}")
+    String timeout(@PathVariable("time") int sleepTime) {
+        return providerFeign.timeout(sleepTime);
     }
 
 }

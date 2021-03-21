@@ -24,7 +24,7 @@ public class ProviderFallBack implements ProviderFeign {
 
     @Override
     public String timeout(int time) {
-        return null;
+        return "hystrix occur";
     }
 
     @Override

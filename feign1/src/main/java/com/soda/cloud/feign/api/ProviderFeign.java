@@ -1,11 +1,11 @@
 package com.soda.cloud.feign.api;
 
 import com.soda.cloud.feign.ProviderFallBack;
-import com.soda.cloud.pojo.Book;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "bookServer", fallback = ProviderFallBack.class)
+//@FeignClient(name = "bookServer")
 public interface ProviderFeign {
 
     @RequestMapping(method = RequestMethod.GET, value = "/book/{bookName}")
@@ -19,8 +19,6 @@ public interface ProviderFeign {
      String error();
 
 
-    @GetMapping("/ribbon/retry/timeout/{time}")
-    String timeout(int time);
 
 
     /**
@@ -52,6 +50,18 @@ public interface ProviderFeign {
      * @return
      */
     @PostMapping("/test/post/many")
-    String postManyTest(  @RequestParam("param1")String param1,  String param2, @RequestParam("param3") String param3);
+    String postManyTest(@RequestParam("param1") String param1, String param2, @RequestParam("param3") String param3);
+
+
+    /**
+     * 测试feign超时
+     * @param sleepTime
+     * @return
+     */
+    @GetMapping("/test/timeout/{time}")
+    String timeout(@PathVariable("time") int sleepTime);
+
+
+
 
 }

@@ -3,6 +3,8 @@ package com.soda.cloud.controller;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * http method test
  * exception test
@@ -70,6 +72,16 @@ public class TestController {
         } else {
             return "bad receive";
         }
+    }
+
+
+    @GetMapping("/timeout/{time}")
+    public String timeout(@PathVariable("time") int sleepTime) throws InterruptedException {
+
+        System.out.println("time start");
+        TimeUnit.SECONDS.sleep(sleepTime);
+        System.out.println("time end");
+        return "success";
     }
 
 

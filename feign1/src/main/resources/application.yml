@@ -1,0 +1,87 @@
+server:
+  port: 8081
+
+
+#eureka客户端配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8082/eureka/
+    # registry-fetch-interval-seconds: 5
+    register-with-eureka: true
+
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 20
+
+
+
+spring:
+  application:
+    name: feignServer
+
+
+
+
+
+
+  #配置组件暴露细节
+management:
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+
+  endpoints:
+    web:
+      #暴露actuator/hystrix.stream路径
+      exposure:
+        include: [health,hystrix.stream]
+#        include: hystrix.stream
+
+
+
+hystrix:
+  dashboard:
+    # 添加localhost到代理流list
+    #  让dashboard可以接收http://localhost:8081/actuator/hystrix.stream的数据
+    proxy-stream-allow-list: localhost
+
+  command:
+    "ProviderFeign#timeout(int)":
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 11000
+
+##feign 配置
+
+feign:
+  hystrix:
+    enabled: true  #开启hystrix熔断功能
+  client:
+    config:
+      default:
+        connectTimeout: 1000
+        readTimeout: 1000
+      bookServer:
+        connectTimeout: 1000
+        readTimeout: 4000
+
+
+#
+
+#配置ribbon 重试次数
+bookServer:
+  ribbon:
+    MaxAutoRetries: 3
+    MaxAutoRetriesNextServer: 0
+    OkToRetryOnAllOperations: true
+#
+#
+#
