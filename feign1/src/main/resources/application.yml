@@ -76,7 +76,7 @@ feign:
 
 #
 
-#配置ribbon 重试次数
+#配置指定ribbon client 重试次数
 bookServer:
   ribbon:
     MaxAutoRetries: 3

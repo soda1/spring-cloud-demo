@@ -15,6 +15,7 @@
         <module>ribbon-retry</module>
         <module>feign1</module>
         <module>hystrix-demo</module>
+        <module>zuul-demo</module>
     </modules>
 
     <properties>

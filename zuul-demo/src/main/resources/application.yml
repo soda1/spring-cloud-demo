@@ -1,0 +1,73 @@
+server:
+  port: 8084
+
+
+zuul:
+  routes:
+#    服务和路径映射
+    bookServer:
+      path: /common/**
+      serviceId: bookServer
+#      是否去点代理前缀: /common
+      stripPrefix: true
+#    路径前缀
+  prefix: /api
+  retryable: true
+
+
+
+
+bookServer:
+  ribbon:
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 0
+    OkToRetryOnAllOperations: true
+    #不使用eureka，直接配置ribbon client server list
+#    listOfServers: http://localhost:8083, http://localhost:8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [health, routes, filters, hystrix.stream]
+
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+
+
+spring:
+  application:
+    name: zuul
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8082/eureka/
+#    register-with-eureka: true
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8082/eureka/
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+  dashboard:
+    # 添加localhost到代理流list
+    #  让dashboard可以接收http://localhost:8081/actuator/hystrix.stream的数据
+    proxy-stream-allow-list: localhost
+
+ribbon:
+  ReadTimeout: 6000
+  ConnectTimeout: 1000
+  MaxAutoRetries: 1
