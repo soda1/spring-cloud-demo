@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: zuul-server
+server:
+  port: 8093
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8085/eureka/,http://peer2:8086/eureka/
+    register-with-eureka: true
+    instance:
+      lease-renewal-interval-in-seconds: 30
+
+# 有服务发现功能配置
+zuul:
+  ignored-services: '*'
+  routes:
+    provider:
+      path: /provider-server/**
+      service-id: provider-server
+  prefix: /api
+#无服务发现功能配置
+#zuul:
+#  routes:
+#    provider: #路由id
+#      path: /provider-server/** #映射路径
+#      url: http://localhost:8087 #url地址
+
+#    provider: provider-server/provider/**
+logging:
+  level:
+    com.netflix: debug
+
+#provider-server:
+#  ribbon:
+#    ConnectTimeout: 1000
+#    ReadTimeout: 3000

@@ -1,0 +1,24 @@
+#new book
+POST http://localhost:8093/api/provider-server/provider/book/?name=西游记
+Content-Type: application/json
+
+{
+}
+
+###
+#query book by name
+GET http://localhost:8093/api/provider-server/provider/book/西游记
+Accept: application/json
+
+###
+#@name get books without token
+GET http://localhost:8093/api/provider-server/provider/book/list
+Accept: application/json
+###
+#@name get books
+GET http://localhost:8093/api/provider-server/provider/book/list?access-token=123
+Accept: application/json
+###
+#@name get books without eureka
+GET http://localhost:8093/provider-server/provider/book/list?access-token=123
+Accept: application/json

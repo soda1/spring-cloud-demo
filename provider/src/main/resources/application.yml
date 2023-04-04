@@ -1,0 +1,66 @@
+spring:
+  profiles:
+    active: peer1
+
+  datasource:
+#    url: jdbc:mysql://192.168.74.140:3306/test?serverTimezone=Asia/Shanghai
+#    username: soda
+#    password: root
+    url: jdbc:mysql://192.168.3.100:3306/test?serverTimezone=Asia/Shanghai
+    username: soda
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  type-aliases-package: com.eric.cloud.pojo
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    com.soda.cloud.mapper: debug
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8085/eureka/,http://peer2:8086/eureka/
+    register-with-eureka: true
+    instance:
+      lease-renewal-interval-in-seconds: 30
+#      lease-expiration-duration-in-seconds: 15
+
+# 配置监控端点
+management:
+  endpoint:
+    health:
+      # 是否展示健康检查详情
+      show-details: always
+
+#配置两个服务端口
+server:
+  servlet:
+    context-path: /provider/
+---
+spring:
+  application:
+       name: provider-server
+  profiles: peer1
+server:
+  port: 8087
+
+
+---
+spring:
+  application:
+       name: provider-server2
+  profiles: peer2
+server:
+  port: 8088
+
+
+---
+spring:
+  application:
+    name: provider-server
+  profiles: peer3
+server:
+  port: 8089

@@ -1,0 +1,16 @@
+#new book
+POST http://localhost:8081/feign/book/?name=peter
+Content-Type: application/json
+
+{
+}
+
+###
+#query book by name
+GET http://localhost:8081/feign/book/西游记
+Accept: application/json
+
+###
+# get books
+GET http://localhost:8081/feign/book/list
+Accept: application/json

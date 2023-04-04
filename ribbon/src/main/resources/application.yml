@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ribbon
+server:
+  port: 8090
+  servlet:
+    context-path: /ribbon
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8085/eureka/,http://peer2:8086/eureka/
+    register-with-eureka: true
+    instance:
+      lease-renewal-interval-in-seconds: 30
+
+#bookService:
+#  ribbon:
+#    eureka:
+#      enabled: false
+#    listOfServers: http://localhost:8083
+#    MaxAutoRetries: 3
+#    ReadTimeout: 3000
+#    ConnectTimeout: 1000
+#    MaxAutoRetriesNextServer: 0
+#    retryableStatusCodes: 503, 408,
+#    OkToRetryOnAllOperations: true
+#    http:
+#      client:
+#        enabled: true

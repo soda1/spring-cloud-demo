@@ -1,0 +1,4 @@
+GET http://localhost:8087/actuator/health
+Accept: application/json
+
+###

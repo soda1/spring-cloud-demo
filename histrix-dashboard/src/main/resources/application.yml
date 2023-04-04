@@ -1,0 +1,15 @@
+server:
+  port: 8092
+spring:
+  application:
+    name: hystrix-dashboard-server
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8085/eureka/,http://peer2:8086/eureka/
+    register-with-eureka: true
+    instance:
+      lease-renewal-interval-in-seconds: 30
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: [localhost]

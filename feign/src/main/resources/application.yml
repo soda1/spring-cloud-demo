@@ -1,0 +1,87 @@
+spring:
+  application:
+    name: feign-server
+server:
+  port: 8081
+
+#eureka客户端配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8085/eureka/
+    # registry-fetch-interval-seconds: 5
+    register-with-eureka: true
+
+#  #配置组件暴露细节
+#management:
+#  endpoint:
+#    health:
+#      show-details: always
+#      show-components: always
+#
+#  endpoints:
+#    web:
+#      #暴露actuator/hystrix.stream路径
+#      exposure:
+#        include: [health,hystrix.stream]
+##        include: hystrix.stream
+#
+#
+#
+#配置hystrix
+hystrix:
+#  dashboard:
+#    # 添加localhost到代理流list
+#    #  让dashboard可以接收http://localhost:8081/actuator/hystrix.stream的数据
+#    proxy-stream-allow-list: localhost
+#
+  command:
+#    "ProviderFeign#timeout(int)":
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 10000
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+#
+###feign 配置
+#
+feign:
+  hystrix:
+    enabled: true  #开启hystrix熔断功能
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 5000
+
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 1000
+#        readTimeout: 1000
+#      bookServer:
+#        connectTimeout: 1000
+#        readTimeout: 4000
+#
+#
+##
+#
+##配置指定ribbon client 重试次数
+provider-server:
+  ribbon:
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 0
+    OkToRetryOnAllOperations: true
+##
+##
+#config feign print log
+logging:
+  level:
+    com.eric.study.cloud.feign.api.ProviderFeign: debug
+    com.eric.study.cloud.feign.api.ProviderFeignCopy: debug
+#debug: true
+##

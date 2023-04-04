@@ -1,0 +1,8 @@
+
+###
+# test ribbon loadbalance
+GET http://localhost:8090/ribbon/admin/
+Accept: application/json
+
+###
+

@@ -1,0 +1,20 @@
+
+server:
+  port: 8094
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://F:\Java\Code\SpringCloud/config-repo # 具体仓库地址
+          #使用占位符 支持每个应用一个repo，如我们从http://localhost:8888/abc-config-server/dev去获取的话，
+          #那么会将application自动占位为abc-config-server，即去https://github.com/lingyejun/abc-config-server
+          #这个仓库的根目录下找abc-config-server-dev.yml资源
+          #          uri: file://F:\Java\Code\SpringCloud/{application}
+#          repos:
+#            config-client:
+##              模式匹配，如果匹配成功，会先从配置的uri地址获取配置文件，如果找不到，则从spring.cloud.config.server.git.uri中找
+#              pattern: config-client*
+#              uri: file://F:\Java\Code\SpringCloud/config-client

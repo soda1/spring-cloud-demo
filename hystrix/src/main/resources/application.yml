@@ -1,0 +1,32 @@
+server:
+  port: 8091
+spring:
+  application:
+    name: hystrix-server
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8085/eureka/,http://peer2:8086/eureka/
+    register-with-eureka: true
+    instance:
+      lease-renewal-interval-in-seconds: 30
+
+
+#配置组件暴露细节
+management:
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+
+  #暴露actuator/hystrix.stream路径
+  endpoints:
+    web:
+      exposure:
+        include: [health, hystrix.stream]
+# 添加localhost到代理流list
+#  让dashboard可以接收http://localhost:8081/actuator/hystrix.stream的数据
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 1000
+hystrix.command.timeoutKey.execution.isolation.thread.timeoutInMilliseconds: 3000
+
+

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: config-client-server
+  cloud:
+    config:
+      uri: http://localhost:8094/ #config server address
+      profile: dev
+      label: master
+      name: config-client

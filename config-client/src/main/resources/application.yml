@@ -1,0 +1,9 @@
+server:
+  port: 8095
+debug: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
